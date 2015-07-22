@@ -1,8 +1,11 @@
 
+#include <cstdio>
 #include <GL/glut.h>
 #include "scene.h"
 
-Scene g_scene; // glut requires use of global state, sorry
+// glut requires use of global state, sorry
+Scene g_scene;
+float g_new_circle_size = 3.0f;
 
 static Vec2 screen_to_scene(int x, int y) {
   return Vec2(x /= 10.0f, y /= 10.0f);
@@ -13,7 +16,7 @@ static void mouse(int button, int state, int x, int y) {
   if (state == GLUT_DOWN) {
     switch (button) {
       case GLUT_LEFT_BUTTON: {
-        g_scene.add_circle(random(2.0f, 4.0f), pos);
+        g_scene.add_circle(g_new_circle_size, pos);
         break;
       }
       case GLUT_RIGHT_BUTTON: {
@@ -40,6 +43,18 @@ static void keyboard(unsigned char key, int /*x*/, int /*y*/) {
     }
     case 'd': {
       g_scene.clear_circles();
+      break;
+    }
+    case '+':
+    case '=':
+    {
+      g_new_circle_size = clamp(1.0f, 10.0f, g_new_circle_size + 0.5f);
+      printf("new circle size = %f\n", g_new_circle_size);
+      break;
+    }
+    case '-': {
+      g_new_circle_size = clamp(1.0f, 10.0f, g_new_circle_size - 0.5f);
+      printf("new circle size = %f\n", g_new_circle_size);
       break;
     }
   }
