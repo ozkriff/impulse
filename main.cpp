@@ -89,7 +89,19 @@ static void init_callbacks() {
   glutIdleFunc(mainloop);
 }
 
+static void print_help_info() {
+  printf("Max circles count is %d\n", MAX_CIRCLES_COUNT);
+  printf("Max collisions count is %d\n", MAX_COLLISIONS_COUNT);
+  printf("Press LMB to create new circle\n");
+  printf("Press '-' to decrease size of new circles\n");
+  printf("Press '+' to increase size of new circles\n");
+  printf("Press 'd' to delete all circles\n");
+  printf("Press/hold ' ' to run simulation by steps\n");
+  printf("Press 'f' to disable frame stepping\n");
+}
+
 int main(int ac, char** av) {
+  print_help_info();
   srand(1);
   init_context(ac, av);
   init_callbacks();
